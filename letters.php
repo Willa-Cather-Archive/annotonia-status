@@ -1,15 +1,15 @@
 <?php
-  include "config.php";
-  include "helpers.php";
+  include "env/config.php";
+  include "lib/helpers.php";
 ?>
 
 <html>
-  <?php include "head.html"; ?>
+  <?php include "layout/head.html"; ?>
 
   <body>
-    <?php include "navbar.html"; ?>
+    <?php include "layout/navbar.php"; ?>
     <div class="container">
-      <h4>Status of Annotations</h4>
+      <h4>Letters</h4>
 
       <div class="results">
       <?php 

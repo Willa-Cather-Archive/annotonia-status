@@ -1,5 +1,5 @@
 <?php
-  include "config.php";
+  include "env/config.php";
 
   // get info about the annotation you're about to delete
   $curl = curl_init();
@@ -23,10 +23,10 @@
 ?>
 
 <html>
-  <?php include "head.html"; ?>
+  <?php include "layout/head.html"; ?>
   <body>
     <div class="container">
-      <?php include "navbar.html"; ?>
+      <?php include "layout/navbar.php"; ?>
       <h2>Deleted Annotation <?php echo $anno["id"] ?></h2>
       <div class="row">
         <div class="col-md-3">
