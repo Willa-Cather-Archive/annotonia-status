@@ -46,7 +46,7 @@
             echo <<<END
 	<div class="row">
 	  <h4 class="pull-left"><strong>$id:&nbsp;</strong></h4>
-	  <h4><a href="$boilerplate_url$id\.html">$title</a></h4>
+	  <h4><a href="$boilerplate_url$id.html">$title</a></h4>
 END;
 
             $annotations = $anno_letters[$id];
@@ -62,7 +62,7 @@ END;
 
             echo <<<END
 	  <div class="col-md-2">
-	    <a href="$catherletters_url$id\.html">Cather View</a>
+	    <a href="$catherletters_url$id.html">Cather View</a>
 	  </div>
 	  <div class="col-md-2">
 	    $anno_count annotation(s)
