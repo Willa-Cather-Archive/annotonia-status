@@ -51,24 +51,25 @@
           $anno_length = count($annotations["rows"]);
         ?>
         <h4><?php echo $anno_length ?> result(s) found</h4>
-        <div class="list">
+        <hr>
+        <div>
           <?php for ($i = 0; $i < $anno_length; $i++): ?>
             <?php
               $row = $annotations["rows"][$i];
               $tag_html = generate_tags($row["tags"]);
             ?>
-            <div class="annotation">
-              <h5>Letter Id: <?php echo $row["pageID"] ?></h5>
+            <div>
               <div class="row">
 
                 <!-- Identification and Links -->
                 <div class="col-md-3">
-                  <p><?php echo $tag_html ?></p>
-                  <p>Annotation Id: <?php echo $row["id"] ?></p>
+                  <h5>Letter: <?php echo $row["pageID"] ?></h5>
+                  <div class="pull-right"><?php echo $tag_html ?></div>
+                  <p>ID: <?php echo $row["id"] ?></p>
                   <?php if (isset($row["pageID"])): ?>
-                    <a href="<?php echo $boilerplate_url?><?php echo $row["pageID"]?>.html">Boilerplate</a>
+                    <a href="<?php echo $boilerplate_url?><?php echo $row["pageID"]?>.html">Annotate</a>
                        | 
-                      <a href="<?php echo $catherletters_url?><?php echo $row["pageID"]?>.html">Cather Site</a>
+                      <a href="<?php echo $catherletters_url?><?php echo $row["pageID"]?>.html">Cather View</a>
                   <?php else: ?>
                     No links available for nonexistent id
                   <?php endif; ?>
@@ -76,12 +77,27 @@
 
                 <!-- Annotation content -->
                 <div class="col-md-8">
-                  <p>Highlight: <span class="quote"><?php echo $row["quote"]?></span></p>
-                  <p>Annotation: 
-                    <div class="text">
-                      <?php echo htmlspecialchars($row["text"]) ?>
-                    </div>
-                  </p>
+                  <h5>
+                    Highlight:
+		    <span class="quote"><?php echo $row["quote"]?></span>
+                  </h5>
+		  <div class="well well-sm">
+                      <?php
+                        # Wrap image with link, limit size, display alt text
+                        echo preg_replace(
+                          '/<img src="(.+?)" alt="(.*?)"(.*)?>/'
+                          , <<<END
+<div class="container-fluid">
+  <a href="$1">
+    <img class="img-responsive" src="$1" alt="$2" title="$2"$3>
+  </a>
+</div>
+<span class="text">Alt Text "$2"</span>
+END
+                          , $row["text"]
+                        );
+                      ?>
+		  </div>
                 </div>
 
                 <!-- Delete Annotation -->
@@ -93,6 +109,7 @@
                 </div>
               </div>
             </div>
+            <hr>
           <?php endfor ?>
         </div>
       </div>

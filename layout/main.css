@@ -1,0 +1,31 @@
+.delete {
+  background-color: #A20000;
+  color: #FFF;
+  margin: 2.5em 0 0;
+  padding: 0;
+  text-align: center;
+}
+.img-responsive {
+  max-height: 16em;
+  width: auto;
+}
+.label {
+  margin-left: 0.25em;
+  padding: 0.5em 0.5em 0.125em;
+}
+.label-wrap {
+  margin: 0.35em 0;
+}
+.quote {
+  background-color: rgba(255, 255, 0, 0.3);
+  border-radius: 0.25em;
+  padding: 0.125em 0.25em;
+}
+.text {
+  background-color: #DDD;
+  border-radius: 0.25em;
+  font-family: Consolas, monaco, monospace;
+  font-size: .8em;
+  padding: 0.125em 0.25em;
+}
+

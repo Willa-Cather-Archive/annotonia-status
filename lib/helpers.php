@@ -12,12 +12,13 @@
 
   function generate_tags($tags) {
     $tag_length = count($tags);
-    $html = "";
+    $html = '<div class="label-wrap">';
     for ($i = 0; $i < $tag_length; $i++) {
        $tag = $tags[$i];
        $type = get_color($tag);
        $html .= "<span class='label " . $type . "'>" . $tag . "</span>";
     }
+    $html .= "</div>";
     return $html;
   }
 ?>

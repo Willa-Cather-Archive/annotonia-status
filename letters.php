@@ -11,7 +11,7 @@
     <div class="container">
       <h4>Letters</h4>
 
-      <div class="results">
+      <div class="container-fluid">
       <?php 
         // GET a request to the flask url for the requested tag (or no tags if all annotations)
         $curl = curl_init();
@@ -41,22 +41,41 @@
           $title = $xml->teiHeader->fileDesc->titleStmt->title;
           $id = $xml->teiHeader->fileDesc->publicationStmt->idno;
           if (preg_match("/cat\.let[0-9]{4}/i", $id)) {
-            echo "<div class='letter'>";
-              $id = str_replace("cat.", "", $id);
-                echo "<h4><a href='" . $boilerplate_url . $id . ".html'>" . $title . "</a></h4>";
-              $annotations = $anno_letters[$id];
-              $anno_count = count($annotations);
-              $tags = array();
-              // TODO there must be a way to do an array_map but it's not working
-              for ($i = 0; $i < $anno_count; $i++) {
-                foreach ($annotations[$i]["tags"] as $tag) {
-                  array_push($tags, $tag);
-                }
+            $id = str_replace("cat.", "", $id);
+
+            echo <<<END
+	<div class="row">
+	  <h4 class="pull-left"><strong>$id:&nbsp;</strong></h4>
+	  <h4><a href="$boilerplate_url$id\.html">$title</a></h4>
+END;
+
+            $annotations = $anno_letters[$id];
+            $anno_count = count($annotations);
+            $tags = array();
+
+            // TODO there must be a way to do an array_map but it's not working
+            for ($i = 0; $i < $anno_count; $i++) {
+              foreach ($annotations[$i]["tags"] as $tag) {
+                array_push($tags, $tag);
               }
-              echo "<a href='" . $catherletters_url . $id . ".html'>View cat. " . $id . " on the Cather site</a>";
-              echo "<div>" . $anno_count . " annotation(s)</div>";
-              echo "<div>" . generate_tags(array_unique($tags)) . "</div>";
-            echo "</div>";
+            }
+
+            echo <<<END
+	  <div class="col-md-2">
+	    <a href="$catherletters_url$id\.html">Cather View</a>
+	  </div>
+	  <div class="col-md-2">
+	    $anno_count annotation(s)
+	  </div>
+	  <div class="col-md-8">
+END;
+    
+            echo generate_tags(array_unique($tags));
+            echo <<<END
+	  </div>
+	</div>
+	<hr>
+END;
           }
         }
       ?>
