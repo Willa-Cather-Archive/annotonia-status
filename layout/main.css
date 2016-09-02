@@ -16,6 +16,11 @@
 .label-wrap {
   margin: 0.35em 0;
 }
+.navbar-form .form-control {
+  max-width: 100%;
+  margin-left: 0.5em;
+  width: 25em;
+}
 .quote {
   background-color: rgba(255, 255, 0, 0.3);
   border-radius: 0.25em;

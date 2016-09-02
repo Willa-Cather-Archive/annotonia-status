@@ -22,25 +22,21 @@
   <body>
     <?php include "layout/navbar.php"; ?>
     <div class="container">
-      <h4>Annotations by Status</h4>
-
-      <div class="navbar">
-        <ul class="nav nav-pills">
-          <?php echo make_link(""); ?>
-          <?php echo make_link("Needs Correction", "Correction"); ?>
-          <?php echo make_link("Needs Annotation", "Annotation"); ?>
-          <?php echo make_link("Draft"); ?>
-          <?php echo make_link("Complete"); ?>
-          <?php echo make_link("Published"); ?>
-        </ul>
-      </div>
+      <h4>Annotonia Search</h4>
 
       <div class="results">
         <?php 
           // GET a request to the flask url for the requested tag (or no tags if all annotations)
           $curl = curl_init();
-          $url = (isset($_GET["tag"]) ? $flask_url."/search?limit=2000&tags=" . $_GET["tag"] : $flask_url."/search?limit=2000");
-          $url = str_replace(" ", "%20", $url);
+
+          # Add wildcard to the end of queries not quoted
+          $_GET[q] = preg_replace("/([^*'\"])$/", "$1*", $_GET[q]);
+
+          $url = (isset($_GET[q]) && $_GET[q] !== "")
+            ? "$flask_url/search_raw?size=2000&q=". rawurlencode($_GET[q])
+            : "$flask_url/search_raw?size=2000&q=*"
+          ;
+
           curl_setopt($curl, CURLOPT_URL, $url);
           curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
           $res = curl_exec($curl); 
@@ -48,28 +44,31 @@
 
           // Parse json and display results
           $annotations = json_decode($res, true);
-          $anno_length = count($annotations["rows"]);
         ?>
-        <h5><?php echo $anno_length ?> annotation(s)</h5>
+        <h5>
+          <?php echo $annotations[hits][total] ?>
+          result(s) found for search:
+          <?php echo "$_GET[q]" ?>
+        </h5>
         <hr>
         <div>
-          <?php for ($i = 0; $i < $anno_length; $i++): ?>
+          <?php for ($i = 0; $i < $annotations[hits][total]; $i++): ?>
             <?php
-              $row = $annotations["rows"][$i];
-              $tag_html = generate_tags($row["tags"]);
+              $row = $annotations[hits][hits][$i][_source];
+              $tag_html = generate_tags($row[tags]);
             ?>
             <div>
               <div class="row">
 
                 <!-- Identification and Links -->
                 <div class="col-md-3">
-                  <h5>Letter: <?php echo $row["pageID"] ?></h5>
+                  <h5>Letter: <?php echo $row[pageID] ?></h5>
                   <div class="pull-right"><?php echo $tag_html ?></div>
-                  <p>ID: <?php echo $row["id"] ?></p>
-                  <?php if (isset($row["pageID"])): ?>
-                    <a href="<?php echo $boilerplate_url?><?php echo $row["pageID"]?>.html">Annotate</a>
+                  <p>ID: <?php echo $row[id] ?></p>
+                  <?php if (isset($row[pageID])): ?>
+                    <a href="<?php echo $boilerplate_url?><?php echo $row[pageID]?>.html">Annotate</a>
                        | 
-                      <a href="<?php echo $catherletters_url?><?php echo $row["pageID"]?>.html">Cather View</a>
+                      <a href="<?php echo $catherletters_url?><?php echo $row[pageID]?>.html">Cather View</a>
                   <?php else: ?>
                     No links available for nonexistent id
                   <?php endif; ?>
