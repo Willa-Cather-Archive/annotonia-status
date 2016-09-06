@@ -55,6 +55,7 @@
           <?php for ($i = 0; $i < $annotations[hits][total]; $i++): ?>
             <?php
               $row = $annotations[hits][hits][$i][_source];
+              $row[id] = $annotations[hits][hits][$i][_id];
               $tag_html = generate_tags($row[tags]);
             ?>
             <div>
