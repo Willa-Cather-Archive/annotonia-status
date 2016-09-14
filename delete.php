@@ -16,6 +16,8 @@
   $delurl = $flask_url."/annotations/".$_GET["id"];
   $del = curl_init();
   curl_setopt($del, CURLOPT_URL, $delurl);
+  // setting user agent for the benefit of mod_security
+  curl_setopt($del, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64) Cather Annotonia Status Deletion');
   curl_setopt($del, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($del, CURLOPT_CUSTOMREQUEST, "DELETE");
   $delres = curl_exec($del);
@@ -28,6 +30,8 @@
     <div class="container">
       <?php include "layout/navbar.php"; ?>
       <h2>Deleted Annotation <?php echo $anno["id"] ?></h2>
+      <h3>Deletion Success: </h3>
+      <?php echo print_r($delres) ?>
       <div class="row">
         <div class="col-md-3">
           <p>Annotation Id: <?php echo $anno["id"] ?></p>
