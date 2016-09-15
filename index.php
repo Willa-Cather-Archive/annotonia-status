@@ -1,20 +1,6 @@
 <?php
   include "env/config.php";
   include "lib/helpers.php";
-
-  function make_link($tag, $search = null) {
-    $search = $search ? $search : $tag;
-    $html = "";
-    $class = ($_GET["tag"] == $search ? 'active' : 'inactive');
-    $html .= "<li role='presentation' class='" . $class . "'>";
-    if ($tag == "") {
-      $html .= "<a href='" . $GLOBALS["status_link_url"] . "''>All Annotations</a>";
-    } else {
-      $html .= "<a href='" . $GLOBALS["status_link_url"] . "?tag=" . $search . "''>" . $tag . "</a>";
-    }
-    $html .= "</li>";
-    return $html;
-  }
 ?>
 
 <html>
@@ -66,7 +52,13 @@
                 <!-- Identification and Links -->
                 <div class="col-md-3">
                   <h5>Letter: <?php echo $row["pageID"] ?></h5>
-                  <div class="pull-right"><?php echo $tag_html ?></div>
+                  <div class="pull-right">
+                    <form action="<?php echo $status_link_url?>/view.php">
+                      <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
+                      <input class="form-control edit" type="submit" value="Edit"/>
+                    </form>
+                    <?php echo $tag_html ?>
+                  </div>
                   <p>ID: <?php echo $row["id"] ?></p>
                   <?php if (isset($row["pageID"])): ?>
                     <a href="<?php echo $boilerplate_url?><?php echo $row["pageID"]?>.html">Annotate</a>
@@ -81,14 +73,14 @@
                 <div class="col-md-8">
                   <h5>
                     Highlight:
-		    <span class="quote"><?php echo $row["quote"]?></span>
+                    <span class="quote"><?php echo $row["quote"]?></span>
                   </h5>
-		  <div class="well well-sm">
-                      <?php
-                        # Wrap image with link, limit size, display alt text
-                        echo preg_replace(
-                          '/<img src="(.+?)" alt="(.*?)"(.*)?>/'
-                          , <<<END
+                  <div class="well well-sm">
+                    <?php
+                      # Wrap image with link, limit size, display alt text
+                      echo preg_replace(
+                        '/<img src="(.+?)" alt="(.*?)"(.*)?>/'
+                        , <<<END
 <div class="container-fluid">
   <a href="$1">
     <img class="img-responsive" src="$1" alt="$2" title="$2"$3>
@@ -96,11 +88,11 @@
 </div>
 <span class="text">Alt Text "$2"</span>
 END
-                          , $row["text"]
-                        );
-                      ?>
-		  </div>
-                </div>
+                        , $row["text"]
+                      );
+                    ?>
+                  </div>
+                </div> <!-- /div col-md-8 -->
 
                 <!-- Delete Annotation -->
                 <div class="col-md-1">
@@ -109,7 +101,7 @@ END
                     <input class="form-control delete" type="submit" value="Delete"/>
                   </form>
                 </div>
-              </div>
+              </div> <!-- /div col-md-8 -->
             </div>
             <hr>
           <?php endfor ?>

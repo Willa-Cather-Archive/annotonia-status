@@ -21,4 +21,31 @@
     $html .= "</div>";
     return $html;
   }
+
+  function generate_tag_dropdown($selected) {
+    $tags = array("Complete", "Draft", "Needs Annotation", "Needs Correction", "Published");
+    $html = '';
+    foreach ($tags as $tag) {
+      if ($tag == $selected) {
+        $html .= "<option value='" . $tag . "' selected>" . $tag . "</option>";
+      } else {
+        $html .= "<option value='" . $tag . "'>" . $tag . "</option>";
+      }
+    }
+    return $html;
+  }
+
+  function make_link($tag, $search = null) {
+    $search = $search ? $search : $tag;
+    $html = "";
+    $class = ($_GET["tag"] == $search ? 'active' : 'inactive');
+    $html .= "<li role='presentation' class='" . $class . "'>";
+    if ($tag == "") {
+      $html .= "<a href='" . $GLOBALS["status_link_url"] . "''>All Annotations</a>";
+    } else {
+      $html .= "<a href='" . $GLOBALS["status_link_url"] . "?tag=" . $search . "''>" . $tag . "</a>";
+    }
+    $html .= "</li>";
+    return $html;
+  }
 ?>

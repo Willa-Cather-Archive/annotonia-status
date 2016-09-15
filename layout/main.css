@@ -4,7 +4,23 @@
   margin: 2.5em 0 0;
   padding: 0;
   text-align: center;
+  max-width: 100px;
 }
+
+.edit {
+  background-color: #008081;
+  color: #FFF;
+}
+
+.save {
+  background-color: #629AD1;
+  color: #FFF;
+}
+
+.form-control:hover {
+  background-color: grey;
+}
+
 .img-responsive {
   max-height: 16em;
   width: auto;
