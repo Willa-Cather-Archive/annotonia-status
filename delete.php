@@ -6,6 +6,8 @@
   $url = $flask_url."/annotations/".$_GET["id"];
   $url = str_replace(" ", "%20", $url);
   curl_setopt($curl, CURLOPT_URL, $url);
+  // Set user agent to not trigger mod_security rule for no user agent
+  curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
   $res = curl_exec($curl); 
   curl_close($curl);
@@ -16,8 +18,8 @@
   $delurl = $flask_url."/annotations/".$_GET["id"];
   $del = curl_init();
   curl_setopt($del, CURLOPT_URL, $delurl);
-  // setting user agent for the benefit of mod_security
-  curl_setopt($del, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64) Cather Annotonia Status Deletion');
+  // Set user agent to not trigger mod_security rule for no user agent
+  curl_setopt($del, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
   curl_setopt($del, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($del, CURLOPT_CUSTOMREQUEST, "DELETE");
   $delres = curl_exec($del);
