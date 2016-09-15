@@ -1,6 +1,6 @@
 <?php
   include "env/config.php";
-  // include "lib/helpers.php";
+  include "lib/helpers.php";
 
   // get info about the annotation you're about to edit
   $curl = curl_init();
@@ -14,7 +14,6 @@
   curl_close($curl);
 
   $anno = json_decode($res, true);
-
 ?>
 
 <html>
