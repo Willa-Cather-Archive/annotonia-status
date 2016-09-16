@@ -2,16 +2,7 @@
   include "env/config.php";
 
   // get info about the annotation you're about to delete
-  $curl = curl_init();
-  $url = $flask_url."/annotations/".$_GET["id"];
-  $url = str_replace(" ", "%20", $url);
-  curl_setopt($curl, CURLOPT_URL, $url);
-  // Set user agent to not trigger mod_security rule for no user agent
-  curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  $res = curl_exec($curl); 
-  curl_close($curl);
-
+  $res = get_annotation_by_id($flask_url, $_GET["id"]);
   $anno = json_decode($res, true);
 
   // Delete it!!!

@@ -10,6 +10,7 @@
 .edit {
   background-color: #008081;
   color: #FFF;
+  max-width: 100px;
 }
 
 .save {
