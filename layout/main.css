@@ -1,9 +1,27 @@
+/* form submits */
 .delete {
   background-color: #A20000;
   color: #FFF;
   margin: 2.5em 0 0;
+  max-width: 6.25em;
   padding: 0;
   text-align: center;
+}
+.edit {
+  background-color: #008081;
+  color: #FFF;
+  max-width: 6.25em;
+}
+.save {
+  background-color: #629AD1;
+  color: #FFF;
+  margin-top: 1.25em;
+}
+
+/* annotations */
+
+.form-control:hover {
+  background-color: #808080;
 }
 .img-responsive {
   max-height: 16em;
@@ -33,4 +51,3 @@
   font-size: .8em;
   padding: 0.125em 0.25em;
 }
-
