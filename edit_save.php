@@ -3,7 +3,7 @@
   include "lib/helpers.php";
 
   // get the original annotation info
-  $res = get_annotation_by_id($flask_url, $_POST["id"]);
+  $res = get_annotation_by_id($_POST["id"]);
 
   // add in the fields the user may have altered
   $anno = json_decode($res, true);

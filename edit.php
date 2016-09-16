@@ -2,7 +2,7 @@
   include "env/config.php";
   include "lib/helpers.php";
 
-  $res = get_annotation_by_id($flask_url, $_GET["id"]);
+  $res = get_annotation_by_id($_GET["id"]);
   $anno = json_decode($res, true);
 ?>
 

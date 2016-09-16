@@ -1,9 +1,9 @@
 <?php
   include "../env/config.php";
 
-  function get_annotation_by_id($flask_url, $id) {
+  function get_annotation_by_id($id) {
     $curl = curl_init();
-    $url = sprintf($flask_url."/annotations/%06d", $id);
+    $url = sprintf($GLOBALS["flask_url"]."/annotations/%06d", $id);
     $url = str_replace(" ", "%20", $url);
     curl_setopt($curl, CURLOPT_URL, $url);
     // Set user agent to not trigger mod_security rule for no user agent
@@ -56,7 +56,7 @@
     $class = ($_GET["tag"] == $search ? 'active' : 'inactive');
     $html .= "<li role='presentation' class='" . $class . "'>";
     if ($tag == "") {
-      $html .= "<a href='" . $GLOBALS["status_link_url"] . "''>All Annotations</a>";
+      $html .= "<a href='" . $GLOBALS["status_link_url"] . "'>All Annotations</a>";
     } else {
       $html .= "<a href='" . $GLOBALS["status_link_url"] . "?tag=" . $search . "''>" . $tag . "</a>";
     }
