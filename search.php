@@ -16,10 +16,10 @@
           $curl = curl_init();
 
           # Add wildcard to the end of queries not quoted
-          $_GET[q] = preg_replace("/([^*'\"])$/", "$1*", $_GET[q]);
+          $_GET["q"] = preg_replace("/([^*'\"])$/", "$1*", $_GET["q"]);
 
-          $url = (isset($_GET[q]) && $_GET[q] !== "")
-            ? "$flask_url/search_raw?size=2000&q=". rawurlencode($_GET[q])
+          $url = (isset($_GET["q"]) && $_GET["q"] !== "")
+            ? "$flask_url/search_raw?size=2000&q=". rawurlencode($_GET["q"])
             : "$flask_url/search_raw?size=2000&q=*"
           ;
 
@@ -34,17 +34,17 @@
           $annotations = json_decode($res, true);
         ?>
         <h5>
-          <?php echo $annotations[hits][total] ?>
+          <?php echo $annotations["hits"]["total"] ?>
           result(s) found for search:
-          <?php echo "$_GET[q]" ?>
+          <?php echo $_GET["q"] ?>
         </h5>
         <hr>
         <div>
-          <?php for ($i = 0; $i < $annotations[hits][total]; $i++): ?>
+          <?php for ($i = 0; $i < $annotations["hits"]["total"]; $i++): ?>
             <?php
-              $anno = $annotations[hits][hits][$i][_source];
-              $anno[id] = $annotations[hits][hits][$i][_id];
-              $tag_html = generate_tags($row[tags]);
+              $anno = $annotations["hits"]["hits"][$i]["_source"];
+              $anno["id"] = $annotations["hits"]["hits"][$i]["_id"];
+              $tag_html = generate_tags($row["tags"]);
               include "includes/annotation.php";
             ?>
             <hr>
