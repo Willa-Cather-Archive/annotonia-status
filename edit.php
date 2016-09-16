@@ -22,7 +22,7 @@
     <div class="container">
       <?php include "layout/navbar.php"; ?>
       <h2>Editing Annotation <?php echo $anno["id"] ?></h2>
-      <form action="<?php echo $status_link_url?>/edit.php" method="post">
+      <form action="<?php echo $status_link_url?>/edit_save.php" method="post">
         <!-- hidden fields -->
         <input type="hidden" name="id" value="<?php echo $anno['id'] ?>"/>
         <div class="row anno">

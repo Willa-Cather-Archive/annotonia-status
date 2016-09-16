@@ -53,7 +53,7 @@
                 <div class="col-md-3">
                   <h5>Letter: <?php echo $row["pageID"] ?></h5>
                   <div class="pull-right">
-                    <form action="<?php echo $status_link_url?>/view.php">
+                    <form action="<?php echo $status_link_url?>/edit.php">
                       <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
                       <input class="form-control edit" type="submit" value="Edit"/>
                     </form>
