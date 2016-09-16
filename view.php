@@ -22,9 +22,9 @@
     <div class="container">
       <?php include "layout/navbar.php"; ?>
       <h2>Editing Annotation <?php echo $anno["id"] ?></h2>
-      <form action="<?php echo $status_link_url?>/edit.php">
+      <form action="<?php echo $status_link_url?>/edit.php" method="post">
         <!-- hidden fields -->
-
+        <input type="hidden" name="id" value="<?php echo $anno['id'] ?>"/>
         <div class="row anno">
           <!-- Identification and Links -->
           <div class="col-md-2">
@@ -51,24 +51,7 @@
               <span class="quote"><?php echo $anno["quote"]?></span>
             </h5>
             <p>Click to edit:</p>
-            <div class="well well-sm" contenteditable="true">
-              <?php
-                # Wrap image with link, limit size, display alt text
-                echo preg_replace(
-                  '/<img src="(.+?)" alt="(.*?)"(.*)?>/'
-                  , <<<END
-<div class="container-fluid">
-  <a href="$1">
-    <img class="img-responsive" src="$1" alt="$2" title="$2"$3>
-  </a>
-</div>
-<span class="text">Alt Text "$2"</span>
-END
-                    , $anno["text"]
-                  );
-                ?>
-              </div>
-            </div> <!-- /div col-md-8 -->
+            <textarea name="text" rows="10" cols="80"><?php echo $anno["text"] ?></textarea>
           </div>
           <!-- tags -->
           <div class="row tags">
