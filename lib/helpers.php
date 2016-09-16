@@ -3,7 +3,7 @@
 
   function get_annotation_by_id($flask_url, $id) {
     $curl = curl_init();
-    $url = sprintf($flask_url."/annotations/%s", $id);
+    $url = sprintf($flask_url."/annotations/%06d", $id);
     $url = str_replace(" ", "%20", $url);
     curl_setopt($curl, CURLOPT_URL, $url);
     // Set user agent to not trigger mod_security rule for no user agent
