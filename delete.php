@@ -6,7 +6,7 @@
   $anno = json_decode($res, true);
 
   // Delete it!!!
-  $delurl = $flask_url."/annotations/".$_GET["id"];
+  $delurl = sprintf($flask_url."/annotations/%s", $_GET["id"]);
   $del = curl_init();
   curl_setopt($del, CURLOPT_URL, $delurl);
   // Set user agent to not trigger mod_security rule for no user agent

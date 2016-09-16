@@ -12,7 +12,7 @@
   $anno_update = json_encode($anno);
 
   // PUT a request to update the annotation
-  $puturl = $flask_url."/annotations/".$_POST["id"];
+  $puturl = sprintf($flask_url."/annotations/%s", $_POST["id"]);
   $put = curl_init();
   curl_setopt($put, CURLOPT_URL, $puturl);
   curl_setopt($put, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($anno_update)));
