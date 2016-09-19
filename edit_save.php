@@ -7,7 +7,17 @@
 
   // add in the fields the user may have altered
   $anno = json_decode($res, true);
-  $anno["text"] = $_POST["text"];
+  if (isset($_POST["anno_ref_id"]) && $_POST["anno_ref_id"] !== "") {
+    # Don't allow self-referencing by changing to invalid 000000
+    if ($_POST["anno_ref_id"] == $anno["id"]) $_POST["anno_ref_id"] = "000000";
+
+    $anno["anno_ref_id"] = $_POST["anno_ref_id"];
+    $anno["text"] = "";
+  }
+  else {
+    $anno["anno_ref_id"] = "";
+    $anno["text"] = $_POST["text"];
+  }
   $anno["tags"] = array($_POST["tags"]);
   $anno_update = json_encode($anno);
 
@@ -17,7 +27,7 @@
   curl_setopt($put, CURLOPT_URL, $puturl);
   curl_setopt($put, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($anno_update)));
   curl_setopt($put, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86)64; Annotonia Status)');
-  curl_setopt($CURLOPT_CUSTOMREQUEST, "PUT");
+  curl_setopt($put, CURLOPT_CUSTOMREQUEST, "PUT");
   curl_setopt($put, CURLOPT_POSTFIELDS, $anno_update);
   curl_setopt($put, CURLOPT_RETURNTRANSFER, true);
   $putres = curl_exec($put);

@@ -20,7 +20,7 @@
 
 /* annotations */
 
-.form-control:hover {
+input[type="submit"]:hover {
   background-color: #808080;
 }
 .img-responsive {
