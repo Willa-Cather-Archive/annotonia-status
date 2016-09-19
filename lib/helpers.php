@@ -1,6 +1,4 @@
 <?php
-  include "../env/config.php";
-
   function get_annotation_by_id($id) {
     $curl = curl_init();
     $url = sprintf($GLOBALS["flask_url"]."/annotations/%06d", $id);
@@ -53,7 +51,7 @@
   function make_link($tag, $search = null) {
     $search = $search ? $search : $tag;
     $html = "";
-    $class = ($_GET["tag"] == $search ? 'active' : 'inactive');
+    $class = (isset($_GET["tag"]) && $_GET["tag"]) == $search ? 'active' : 'inactive';
     $html .= "<li role='presentation' class='$class'>";
     if ($tag == "") {
       $html .= "<a href='$GLOBALS[status_link_url]'>All Annotations</a>";
