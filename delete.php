@@ -1,5 +1,6 @@
 <?php
   include "env/config.php";
+  include "lib/helpers.php";
 
   // get info about the annotation you're about to delete
   $res = get_annotation_by_id($_GET["id"]);
