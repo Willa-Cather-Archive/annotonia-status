@@ -15,11 +15,8 @@
           // GET a request to the flask url for the requested tag (or no tags if all annotations)
           $curl = curl_init();
 
-          # Add wildcard to the end of queries not quoted
-          $_GET["q"] = preg_replace("/([^*'\"])$/", "$1*", $_GET["q"]);
-
           $url = (isset($_GET["q"]) && $_GET["q"] !== "")
-            ? "$flask_url/search_raw?size=2000&q=". rawurlencode($_GET["q"])
+            ? "$flask_url/search_raw?size=2000&q=ids_quote_and_text:". rawurlencode($_GET["q"])
             : "$flask_url/search_raw?size=2000&q=*"
           ;
 

@@ -56,7 +56,7 @@ END;
       </ul>
       <form class="navbar-form" action="/annotonia_status/search.php">
         <div class="form-group">
-            <input type="text" class="form-control" name="q" placeholder="Annotation or Highlight Text" autofocus="autofocus"
+            <input type="text" class="form-control" name="q" placeholder="Annotation or Highlight Text, Letter or Annotation ID" autofocus="autofocus"
               <?php if (isset($_GET["q"])) echo ' value="'. htmlentities($_GET["q"]) .'"' ?>
             >
             <button type="submit" class="btn btn-default">Search</button>
