@@ -41,7 +41,7 @@
             <?php
               $anno = $annotations["hits"]["hits"][$i]["_source"];
               $anno["id"] = $annotations["hits"]["hits"][$i]["_id"];
-              $tag_html = generate_tags($row["tags"]);
+              $tag_html = generate_tags($anno["tags"]);
               include "includes/annotation.php";
             ?>
             <hr>
