@@ -48,6 +48,7 @@
             ?>
             <div>
             <?php include "includes/annotation.php" ?>
+            </div>
             <hr>
           <?php endfor ?>
         </div>
