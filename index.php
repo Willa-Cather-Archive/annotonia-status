@@ -36,12 +36,12 @@
 
           // Parse json and display results
           $annotations = json_decode($res, true);
-          $anno_length = count($annotations["rows"]);
+          $annos_returned = count($annotations["rows"]);
         ?>
-        <h5><?php echo $anno_length ?> annotation(s)</h5>
+        <h5><?php echo $annotations["total"] ?> annotation(s), displaying the most recently edited <?php echo $annos_returned ?></h5>
         <hr>
         <div>
-          <?php for ($i = 0; $i < $anno_length; $i++): ?>
+          <?php for ($i = 0; $i < $annos_returned; $i++): ?>
             <?php
               $anno = $annotations["rows"][$i];
               $tag_html = generate_tags($anno["tags"]);
