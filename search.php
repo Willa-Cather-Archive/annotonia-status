@@ -16,8 +16,8 @@
           $curl = curl_init();
 
           $url = (isset($_GET["q"]) && $_GET["q"] !== "")
-            ? "$flask_url/search_raw?size=2000&q=ids_quote_and_text:". rawurlencode($_GET["q"])
-            : "$flask_url/search_raw?size=2000&q=*"
+            ? "$flask_url/search_raw?size=$flask_results_max&q=ids_quote_and_text:". rawurlencode($_GET["q"])
+            : "$flask_url/search_raw?size=$flask_results_max&q=*"
           ;
 
           curl_setopt($curl, CURLOPT_URL, $url);

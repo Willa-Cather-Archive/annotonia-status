@@ -15,7 +15,7 @@
       <?php 
         // GET a request to the flask url for the requested tag (or no tags if all annotations)
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $flask_url."/search?limit=2000");
+        curl_setopt($curl, CURLOPT_URL, $flask_url."/search?limit=$flask_results_max");
         // Set user agent to not trigger mod_security rule for no user agent
         curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -24,15 +24,15 @@
 
         // organize the annotation responses by letter
         $annotations = json_decode($res, true);
-        $anno_length = count($annotations["rows"]);
 
-        $anno_letters = array();
-        for ($i = 0; $i < $anno_length; $i++) {
+        $letters = array();
+        for ($i = 0; $i < $annotations["total"]; $i++) {
           $anno = $annotations["rows"][$i];
-          if (isset($anno_letters[$anno["pageID"]])) {
-            array_push($anno_letters[$anno["pageID"]], $anno);
+
+          if (isset($letters[$anno["pageID"]])) {
+            array_push($letters[$anno["pageID"]], $anno);
           } else {
-            $anno_letters[$anno["pageID"]] = array($anno);
+            $letters[$anno["pageID"]] = array($anno);
           }
         }
 
@@ -42,6 +42,7 @@
           $xml = simplexml_load_file($catherletters_dir . $file);
           $title = $xml->teiHeader->fileDesc->titleStmt->title;
           $id = $xml->teiHeader->fileDesc->publicationStmt->idno;
+
           if (preg_match("/cat\.let[0-9]{4}/i", $id)) {
             $id = str_replace("cat.", "", $id);
 
@@ -51,13 +52,11 @@
 	  <h4><a href="$boilerplate_url$id.html">$title</a></h4>
 END;
 
-            $annotations = $anno_letters[$id];
-            $anno_count = count($annotations);
+            $letter_annos = $letters[$id];
+            $anno_count = count($letter_annos);
             $tags = array();
-
-            // TODO there must be a way to do an array_map but it's not working
             for ($i = 0; $i < $anno_count; $i++) {
-              foreach ($annotations[$i]["tags"] as $tag) {
+              foreach ($letter_annos[$i]["tags"] as $tag) {
                 array_push($tags, $tag);
               }
             }
