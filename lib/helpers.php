@@ -51,7 +51,7 @@
   function make_link($tag, $search = null) {
     $search = $search ? $search : $tag;
     $html = "";
-    $class = (isset($_GET["tag"]) && $_GET["tag"] == $search) ? 'active' : 'inactive';
+    $class = (isset($_GET["tag"]) && $_GET["tag"] == $search || !isset($_GET["tag"]) && $tag == "") ? 'active' : 'inactive';
     $html .= "<li role='presentation' class='$class'>";
     if ($tag == "") {
       $html .= "<a href='$GLOBALS[status_link_url]'>All Annotations</a>";
