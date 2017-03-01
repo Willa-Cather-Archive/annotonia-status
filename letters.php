@@ -15,7 +15,7 @@
       <?php 
         // GET a request to the flask url for the requested tag (or no tags if all annotations)
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $flask_url."/search?limit=2000");
+        curl_setopt($curl, CURLOPT_URL, $flask_url."/search?limit=$flask_results_max");
         // Set user agent to not trigger mod_security rule for no user agent
         curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

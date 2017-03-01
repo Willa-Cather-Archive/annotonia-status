@@ -25,7 +25,10 @@
         <?php 
           // GET a request to the flask url for the requested tag (or no tags if all annotations)
           $curl = curl_init();
-          $url = (isset($_GET["tag"]) ? $flask_url."/search?limit=2000&tags=" . $_GET["tag"] : $flask_url."/search?limit=2000");
+          $url = (isset($_GET["tag"])
+            ? $flask_url."/search?limit=$status_index_annos_max&tags=" . $_GET["tag"]
+            : $flask_url."/search?limit=$status_index_annos_max")
+          ;
           $url = str_replace(" ", "%20", $url);
           curl_setopt($curl, CURLOPT_URL, $url);
           // Set user agent to not trigger mod_security rule for no user agent
