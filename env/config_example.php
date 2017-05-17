@@ -4,8 +4,9 @@
   $catherletters_dir = "/path/to/cocoon/annotonia/xml/letters/";
   $catherletters_url = "/letters/";
 
-  # This value must be adjusted in sync with annotator-store's
-  # See RESULTS_MAX_SIZE in annotator-store/annotator/elasticsearch.py
+  # If limit changed, must also change:
+  # RESULTS_MAX_SIZE in annotator-store/annotator/elasticsearch.py
+  # $flask_limit in annotonia-converter/config.rb
   $flask_results_max = 10000;
   $flask_url = "http://server.unl.edu:port";
 
