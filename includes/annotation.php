@@ -14,7 +14,7 @@
     <?php if (isset($anno["pageID"])): ?>
       <a href="<?php echo $boilerplate_url?><?php echo $anno["pageID"]?>.html">Annotate</a>
       | 
-      <a href="<?php echo $catherletters_url?><?php echo $anno["pageID"]?>.html">Cather&nbsp;View</a>
+      <a href="http://cather.unl.edu/<?php echo $catherletters_url?><?php echo $anno["pageID"]?>.html">Cather&nbsp;View</a>
     <?php else: ?>
       No links available for nonexistent id
     <?php endif; ?>
