@@ -63,7 +63,7 @@ END;
 
             echo <<<END
 	  <div class="col-md-2">
-	    <a href="http://cather.unl.edu/$catherletters_url$id.html">Cather View</a>
+	    <a href="$catherletters_url/$id">Cather View</a>
 	  </div>
 	  <div class="col-md-2">
 	    $anno_count annotation(s)
