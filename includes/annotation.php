@@ -1,4 +1,15 @@
 <div class="row">
+<?php
+  $anno_ref = (isset($anno["anno_ref_id"]) && $anno["anno_ref_id"] !== "") ? true : false;
+
+  if ($anno_ref) {
+    # Retrieve referenced annotation
+    $ref_anno_json = get_annotation_by_id($anno["anno_ref_id"]);
+    $ref_anno = json_decode($ref_anno_json, true);
+  }
+
+  $id_class = ($anno_ref) ? "de-emphasized" : "";
+?>
 
   <!-- Identification and Links -->
   <div class="col-md-3">
@@ -6,11 +17,12 @@
     <div class="pull-right">
       <form action="<?php echo $status_link_url?>/edit.php">
         <input type="hidden" name="id" value="<?php echo $anno['id']?>"/>
-        <input class="form-control edit" type="submit" value="Edit"/>
+        <input class="form-control edit" type="submit"
+          value="Edit<?php if ($anno_ref) echo " Ref." ?>"/>
       </form>
       <?php echo $tag_html ?>
     </div>
-    <p>ID: <?php echo $anno["id"] ?></p>
+    <p class="<?php echo $id_class ?>">ID: <?php echo $anno["id"] ?></p>
     <?php if (isset($anno["pageID"])): ?>
       <a href="<?php echo $boilerplate_url?><?php echo $anno["pageID"]?>.html">Annotate</a>
       | 
@@ -22,19 +34,6 @@
 
   <!-- Annotation content -->
   <div class="col-md-8">
-    <?php
-      $anno_ref = (isset($anno["anno_ref_id"]) && $anno["anno_ref_id"] !== "") ? true : false;
-
-      if ($anno_ref) {
-        echo <<<END
-    <h4 class="pull-right">Annotation Reference</h4>
-END;
-
-        # Retrieve referenced annotation
-        $ref_anno_json = get_annotation_by_id($anno["anno_ref_id"]);
-        $ref_anno = json_decode($ref_anno_json, true);
-      }
-    ?>
     <h5>
       Highlight:
       <span class="quote"><?php echo $anno["quote"]?></span>
@@ -54,9 +53,15 @@ END;
 END
           , ($anno_ref)
             ? <<<END
-<h5>Annotation $ref_anno[id]:</h5>
+<strong>
+  <u>Reference to Annotation $ref_anno[id]:</u>
+</strong>
+<a class="btn-sm btn-primary"
+  href="/annotonia_status/edit.php?id=$ref_anno[id]">
+  Edit Orig.
+</a><br>
+<br>
 $ref_anno[text]
-<a href="/annotonia_status/edit.php?id=$ref_anno[id]">&gt;&gt; Edit Referenced Annotation</a>
 END
             : $anno["text"]
         );
