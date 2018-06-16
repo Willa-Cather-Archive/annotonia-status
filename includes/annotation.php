@@ -1,4 +1,3 @@
-<div class="row">
 <?php
   $anno_ref = (isset($anno["anno_ref_id"]) && $anno["anno_ref_id"] !== "") ? true : false;
 
@@ -8,9 +7,11 @@
     $ref_anno = json_decode($ref_anno_json, true);
   }
 
+  $anno_class = ($anno_ref) ? "ref collapsed" : "";
   $id_class = ($anno_ref) ? "de-emphasized" : "";
 ?>
 
+<div class="row <?php echo $anno_class ?>">
   <!-- Identification and Links -->
   <div class="col-md-3">
     <h5>Letter: <?php echo $anno["pageID"] ?></h5>
@@ -77,3 +78,5 @@ END
     </form>
   </div>
 </div>
+
+<hr class="<?php echo $anno_class ?>">

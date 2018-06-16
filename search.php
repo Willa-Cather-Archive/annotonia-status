@@ -5,6 +5,16 @@
 
 <html>
   <?php include "layout/head.html"; ?>
+  <script>
+    $(function() {
+      $(".ref-toggle").click(function() {
+        $(".ref").each(function() {
+          if ($(this).hasClass("collapsed")) { $(this).removeClass("collapsed") }
+          else { $(this).addClass("collapsed") }
+        });
+      })
+    });
+  </script>
   <body>
     <?php include "layout/navbar.php"; ?>
     <div class="container">
@@ -35,17 +45,21 @@
           result(s) found for search:
           <?php echo $_GET["q"] ?>
         </h5>
+        <div class="form-inline">
+          <div class="checkbox">
+            <input id="ref-toggle" class="ref-toggle" type="checkbox"
+              checked="checked">
+            <label for="ref-toggle">Hide reference annotations</label>
+          </div>
+        </div>
         <hr>
         <div>
-          <?php for ($i = 0; $i < $annotations["hits"]["total"]; $i++): ?>
-            <?php
-              $anno = $annotations["hits"]["hits"][$i]["_source"];
-              $anno["id"] = $annotations["hits"]["hits"][$i]["_id"];
-              $tag_html = generate_tags($anno["tags"]);
-              include "includes/annotation.php";
-            ?>
-            <hr>
-          <?php endfor ?>
+          <?php for ($i = 0; $i < $annotations["hits"]["total"]; $i++):
+            $anno = $annotations["hits"]["hits"][$i]["_source"];
+            $anno["id"] = $annotations["hits"]["hits"][$i]["_id"];
+            $tag_html = generate_tags($anno["tags"]);
+            include "includes/annotation.php";
+          endfor ?>
         </div>
       </div>
     </div>

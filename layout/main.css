@@ -47,6 +47,19 @@ input[type="submit"]:hover {
   border-radius: 0.25em;
   padding: 0.125em 0.25em;
 }
+.ref {
+  max-height: 240em;
+  opacity: 1;
+  overflow: hidden;
+  transition: all 0.5s ease-out, opacity 0.5s cubic-bezier(1,.5,.75,.5), max-height 0.5s cubic-bezier(0, 1, 0.5, 1);
+}
+.ref.collapsed {
+  margin: -0.5px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-out, max-height 0.5s cubic-bezier(0, 1, 0.5, 1);
+}
 .text {
   background-color: #DDD;
   border-radius: 0.25em;
