@@ -55,6 +55,18 @@
           <?php echo $annotations["total"] ?> annotation(s), displaying the most
           recently edited <?php echo $annos_returned ?>
         </h5>
+        <?php
+          $refs_present = false;
+          for ($i = 0; $i < $annos_returned; $i++):
+            $anno = $annotations["rows"][$i];
+            if (isset($anno["anno_ref_id"]) && $anno["anno_ref_id"] !== "") {
+              $ref_present = true;
+              break;
+            }
+          endfor;
+
+          if ($ref_present) {
+            echo <<<END
         <div class="form-inline">
           <div class="checkbox">
             <input id="ref-toggle" class="ref-toggle" type="checkbox"
@@ -62,6 +74,9 @@
             <label for="ref-toggle">Hide reference annotations</label>
           </div>
         </div>
+END;
+          }
+        ?>
         <hr>
         <div>
           <?php for ($i = 0; $i < $annos_returned; $i++):

@@ -45,6 +45,18 @@
           result(s) found for search:
           <?php echo $_GET["q"] ?>
         </h5>
+        <?php
+          $ref_present = false;
+          for ($i = 0; $i < $annotations["hits"]["total"]; $i++):
+            $anno = $annotations["hits"]["hits"][$i]["_source"];
+            if (isset($anno["anno_ref_id"]) && $anno["anno_ref_id"] !== "") {
+              $ref_present = true;
+              break;
+            }
+          endfor;
+
+          if ($ref_present) {
+            echo <<<END
         <div class="form-inline">
           <div class="checkbox">
             <input id="ref-toggle" class="ref-toggle" type="checkbox"
@@ -52,6 +64,9 @@
             <label for="ref-toggle">Hide reference annotations</label>
           </div>
         </div>
+END;
+          }
+        ?>
         <hr>
         <div>
           <?php for ($i = 0; $i < $annotations["hits"]["total"]; $i++):
