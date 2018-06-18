@@ -20,6 +20,9 @@
 
 /* annotations */
 
+.buffer-bottom {
+  margin-bottom: 0.5em;
+}
 input[type="submit"]:hover {
   background-color: #808080;
 }
@@ -41,6 +44,9 @@ input[type="submit"]:hover {
 }
 .de-emphasized {
   color: #BBB;
+}
+.push-down {
+  clear: both;
 }
 .quote {
   background-color: rgba(255, 255, 0, 0.3);

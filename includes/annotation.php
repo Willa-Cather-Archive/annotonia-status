@@ -7,7 +7,13 @@
     $ref_anno = json_decode($ref_anno_json, true);
   }
 
-  $anno_class = ($anno_ref) ? "ref collapsed" : "";
+  if ($anno_ref) {
+    $anno_class = (isset($_GET["type"]) && $_GET["type"] === "ref")
+      ? "ref"
+      : "ref collapsed"
+    ;
+  }
+  else { $anno_class = ""; }
   $id_class = ($anno_ref) ? "de-emphasized" : "";
 ?>
 
@@ -15,7 +21,7 @@
   <!-- Identification and Links -->
   <div class="col-md-3">
     <h5>Letter: <?php echo $anno["pageID"] ?></h5>
-    <div class="pull-right">
+    <div class="pull-right buffer-bottom">
       <form action="<?php echo $status_link_url?>/edit.php">
         <input type="hidden" name="id" value="<?php echo $anno['id']?>"/>
         <input class="form-control edit" type="submit"
@@ -23,13 +29,26 @@
       </form>
       <?php echo $tag_html ?>
     </div>
+
     <p class="<?php echo $id_class ?>">ID: <?php echo $anno["id"] ?></p>
     <?php if (isset($anno["pageID"])): ?>
-      <a href="<?php echo $boilerplate_url?><?php echo $anno["pageID"]?>.html">Annotate</a>
-      | 
-      <a href="<?php echo $catherletters_url ?>/<?php echo $anno["pageID"] ?>">Cather&nbsp;View</a>
+      <p class="buffer-bottom">
+        <a href="<?php echo $boilerplate_url?><?php echo $anno["pageID"]?>.html">Annotate</a>
+        |
+        <a href="<?php echo $catherletters_url ?>/<?php echo $anno["pageID"] ?>">Cather&nbsp;View</a>
+      </p>
     <?php else: ?>
       No links available for nonexistent id
+    <?php endif; ?>
+
+    <?php if (!$anno_ref): ?>
+      <p class="clearfix pull-right push-down">
+        <a class="btn-sm btn-info"
+          href="/annotonia_status/search.php?q=<?php
+          echo $anno["id"] ?>&type=ref">
+          References&nbsp;to&nbsp;this&nbsp;annotation
+        </a>
+      </p>
     <?php endif; ?>
   </div>
 

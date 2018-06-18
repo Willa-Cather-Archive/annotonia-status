@@ -21,14 +21,17 @@
       <h4>Annotonia Search</h4>
 
       <div class="results">
-        <?php 
+        <?php
           // GET a request to the flask url for the requested tag (or no tags if all annotations)
           $curl = curl_init();
 
-          $url = (isset($_GET["q"]) && $_GET["q"] !== "")
-            ? "$flask_url/search_raw?size=$flask_results_max&q=ids_quote_and_text:". rawurlencode($_GET["q"])
-            : "$flask_url/search_raw?size=$flask_results_max&q=*"
-          ;
+          if (isset($_GET["q"]) && $_GET["q"] !== "") {
+            $url = (isset($_GET["type"]) && $_GET["type"] === "ref")
+              ? "$flask_url/search_raw?size=$flask_results_max&q=anno_ref_id:". rawurlencode($_GET["q"])
+              : "$flask_url/search_raw?size=$flask_results_max&q=ids_quote_and_text:". rawurlencode($_GET["q"])
+            ;
+          }
+          else { $url = "$flask_url/search_raw?size=$flask_results_max&q=*"; }
 
           curl_setopt($curl, CURLOPT_URL, $url);
           // Set user agent to not trigger mod_security rule for no user agent
@@ -60,7 +63,12 @@
         <div class="form-inline">
           <div class="checkbox">
             <input id="ref-toggle" class="ref-toggle" type="checkbox"
-              checked="checked">
+END;
+            if (!isset($_GET["type"]) || !$_GET["type"] === "ref") {
+              echo 'checked="checked"';
+            }
+            echo <<<END
+              >
             <label for="ref-toggle">Hide reference annotations</label>
           </div>
         </div>
