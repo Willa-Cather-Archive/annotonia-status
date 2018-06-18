@@ -5,6 +5,16 @@
 
 <html>
   <?php include "layout/head.html"; ?>
+  <script>
+    $(function() {
+      $(".ref-toggle").click(function() {
+        $(".ref").each(function() {
+          if ($(this).hasClass("collapsed")) { $(this).removeClass("collapsed") }
+          else { $(this).addClass("collapsed") }
+        });
+      })
+    });
+  </script>
   <body>
     <?php include "layout/navbar.php"; ?>
     <div class="container">
@@ -22,7 +32,7 @@
       </div>
 
       <div class="results">
-        <?php 
+        <?php
           // GET a request to the flask url for the requested tag (or no tags if all annotations)
           $curl = curl_init();
           $url = (isset($_GET["tag"])
@@ -41,19 +51,24 @@
           $annotations = json_decode($res, true);
           $annos_returned = count($annotations["rows"]);
         ?>
-        <h5><?php echo $annotations["total"] ?> annotation(s), displaying the most recently edited <?php echo $annos_returned ?></h5>
+        <h5>
+          <?php echo $annotations["total"] ?> annotation(s), displaying the most
+          recently edited <?php echo $annos_returned ?>
+        </h5>
+        <div class="form-inline">
+          <div class="checkbox">
+            <input id="ref-toggle" class="ref-toggle" type="checkbox"
+              checked="checked">
+            <label for="ref-toggle">Hide reference annotations</label>
+          </div>
+        </div>
         <hr>
         <div>
-          <?php for ($i = 0; $i < $annos_returned; $i++): ?>
-            <?php
-              $anno = $annotations["rows"][$i];
-              $tag_html = generate_tags($anno["tags"]);
-            ?>
-            <div>
-            <?php include "includes/annotation.php" ?>
-            </div>
-            <hr>
-          <?php endfor ?>
+          <?php for ($i = 0; $i < $annos_returned; $i++):
+            $anno = $annotations["rows"][$i];
+            $tag_html = generate_tags($anno["tags"]);
+            include "includes/annotation.php";
+          endfor ?>
         </div>
       </div>
     </div>
