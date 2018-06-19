@@ -5,6 +5,7 @@
   $catherletters_url = "/letters/";
 
   # If limit changed, must also change:
+  # index.max_result_window in /etc/elasticsearch/elasticsearch.yml
   # RESULTS_MAX_SIZE in annotator-store/annotator/elasticsearch.py
   # $flask_limit in annotonia-converter/config.rb
   $flask_results_max = 10000;
