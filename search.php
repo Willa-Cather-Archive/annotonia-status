@@ -37,7 +37,7 @@
           // Set user agent to not trigger mod_security rule for no user agent
           curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
           curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-          $res = curl_exec($curl); 
+          $res = curl_exec($curl);
           curl_close($curl);
 
           // Parse json and display results
