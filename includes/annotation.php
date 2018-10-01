@@ -42,7 +42,7 @@
     <?php endif; ?>
 
     <?php if (!$anno_ref): ?>
-      <p class="clearfix pull-right push-down">
+      <p class="pull-right push-down">
         <a class="btn-sm btn-info"
           href="/annotonia_status/search.php?q=<?php
           echo $anno["id"] ?>&type=ref">
@@ -50,6 +50,7 @@
         </a>
       </p>
     <?php endif; ?>
+    <span class="clearfix"></span>
   </div>
 
   <!-- Annotation content -->
