@@ -62,14 +62,16 @@
             echo <<<END
         <div class="form-inline">
           <div class="checkbox">
-            <input id="ref-toggle" class="ref-toggle" type="checkbox"
+            <label for="ref-toggle">
+              <input id="ref-toggle" class="ref-toggle" type="checkbox"
 END;
             if (!isset($_GET["type"]) || !$_GET["type"] === "ref") {
               echo 'checked="checked"';
             }
             echo <<<END
               >
-            <label for="ref-toggle">Hide reference annotations</label>
+              Hide reference annotations
+            </label>
           </div>
         </div>
 END;
