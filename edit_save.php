@@ -29,7 +29,7 @@
   curl_setopt($put, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86)64; Annotonia Status)');
   curl_setopt($put, CURLOPT_CUSTOMREQUEST, "PUT");
   curl_setopt($put, CURLOPT_POSTFIELDS, $anno_update);
-  curl_setopt($put, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($put, CURLOPT_RETURNTRANSFER, 1);
   // Disable cert checking to bypass curl cert error with Acme.sh certs
   // Local only traffic and public data, so not really a risk
   curl_setopt($put, CURLOPT_SSL_VERIFYPEER, 0);
