@@ -14,6 +14,9 @@
   curl_setopt($del, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
   curl_setopt($del, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($del, CURLOPT_CUSTOMREQUEST, "DELETE");
+  // Disable cert checking to bypass curl cert error with Acme.sh certs
+  // Local only traffic and public data, so not really a risk
+  curl_setopt($del, CURLOPT_SSL_VERIFYPEER, 0);
   $delres = curl_exec($del);
   curl_close($del);
 ?>

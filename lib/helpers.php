@@ -8,6 +8,9 @@
     curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $res = curl_exec($curl); 
+    // Disable cert checking to bypass curl cert error with Acme.sh certs
+    // Local only traffic and public data, so not really a risk
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_close($curl);
     return $res;
   }

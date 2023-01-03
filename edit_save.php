@@ -30,6 +30,9 @@
   curl_setopt($put, CURLOPT_CUSTOMREQUEST, "PUT");
   curl_setopt($put, CURLOPT_POSTFIELDS, $anno_update);
   curl_setopt($put, CURLOPT_RETURNTRANSFER, true);
+  // Disable cert checking to bypass curl cert error with Acme.sh certs
+  // Local only traffic and public data, so not really a risk
+  curl_setopt($put, CURLOPT_SSL_VERIFYPEER, 0);
   $putres = curl_exec($put);
   curl_close($put);
 ?>

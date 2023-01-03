@@ -19,6 +19,9 @@
         // Set user agent to not trigger mod_security rule for no user agent
         curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (curl; Linux x86_64; Annotonia Status)');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        // Disable cert checking to bypass curl cert error with Acme.sh certs
+        // Local only traffic and public data, so not really a risk
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
         $res = curl_exec($curl); 
         curl_close($curl);
 
